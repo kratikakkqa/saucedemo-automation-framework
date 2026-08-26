@@ -19,7 +19,7 @@ public class LoginTest extends BaseClass
 	{
 		return new Object[][]
 				{
-					{"standard_user", "secret_sauce",false},  // valid + valid
+					{"standard_user", "secret_sauce",true},  // valid + valid
 					{"standard_user", "Krati123",false},       // valid + invalid
 					{"Kratik", "secret_sauce",false},          // invalid + valid
 					{"Kratika","Krati123",false}              // invalid + invalid
