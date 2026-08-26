@@ -1,0 +1,22 @@
+# Maven
+
+target/
+
+# TestNG
+
+test-output/
+
+# Eclipse
+
+.classpath
+.project
+.settings/
+
+# Java
+
+*.class
+
+# IDE
+
+.idea/
+*.iml
