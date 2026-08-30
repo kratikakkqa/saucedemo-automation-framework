@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<suite name="ParameterSuite">
+
+    <test name="ParameterTest">
+
+        <classes>
+            <class name="tests.LoginTest"/>
+            <class name="tests.ProductTest"/>
+        </classes>
+
+    </test>
+
+</suite>
