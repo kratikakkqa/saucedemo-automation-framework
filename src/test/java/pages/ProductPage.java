@@ -20,9 +20,9 @@ public class ProductPage
 	}
 	
 	
-	/* ============================================================================
+/* ============================================================================
                                       ALL LOCATORS
-      ============================================================================*/
+   ============================================================================*/
 	
 	private By aapLogo = By.className("app_logo");
 	private By products = By.xpath("//div[@class='inventory_item']");
@@ -34,10 +34,12 @@ public class ProductPage
 	private By cartIcon =By.id("shopping_cart_container");
 	
 	
-	/* ============================================================================
-                                   PRODUCT PAGE VALIDATIONS
-       ============================================================================*/
+/*===========================================================================
+ *                      VALIDATION, GETTER, ACTION METHODS
+ *===========================================================================
+*/	
 	
+	// Check app login is visible
 	public boolean AppLogoVisible()
 	{
 		return driver.findElement(aapLogo).isDisplayed();
@@ -104,9 +106,9 @@ public class ProductPage
 	}
 	
 	
-	/* ============================================================================
+/* ============================================================================
                                   CART OPERATIONS
-       ============================================================================*/
+   ============================================================================*/
 	
 	
 	// Get all product cart buttons
@@ -114,6 +116,12 @@ public class ProductPage
 	{
 		List<WebElement> buttons = driver.findElements(cartButton);
 		return buttons;
+	}
+	
+	//Add product into cart and get product name
+	public String getProductName_AddingIntoCart()
+	{
+		return driver.findElements(productName).get(1).getText();
 	}
 	
 	// Add single product to cart
@@ -162,10 +170,16 @@ public class ProductPage
 		return driver.findElements(cartButton).get(1).getText();
 	}
 	
+	//Navigate to cart page
+	public void navigateToCartPage()
+	{
+		driver.findElement(cartIcon).click();
+	}
 	
-	/* ============================================================================
+	
+/* ============================================================================
                                    PRODUCT SORTING
-       ============================================================================*/
+    ============================================================================*/
 	
 	// Sort products by name: A to Z
 	public void sortA_Z()
@@ -230,5 +244,23 @@ public class ProductPage
 		Collections.reverse(HighToLow);
 		return HighToLow;
 	}
+	
+	//======================================================================================
+	//=======================================================================================
+	
+	
+	//Add product into cart and get product name
+	public List<String> getMultipleProductNames_AddingIntoCart(int num)
+	{
+		List<String> names = new ArrayList<>();
+		for(int i=0; i<num; i++)
+		{
+			names.add(driver.findElements(productName).get(i).getText());
+			driver.findElements(cartButton).get(i).click();
+		}
+		return names;
+	}
+	
+	
 
 }
