@@ -6,13 +6,14 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 import org.openqa.selenium.chrome.ChromeDriver;
 import utilities.ConfigReader;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 public class BaseClass 
 {
 	protected WebDriver driver;
 	protected ConfigReader cr;
 	
-
+	//@Parameters({"browser","url"})
 	@BeforeMethod
 	public void setUp()
 	{ 
@@ -21,7 +22,16 @@ public class BaseClass
 		
 		if(browser.equalsIgnoreCase("chrome"))
 		{
-			driver = new ChromeDriver();
+			ChromeOptions options = new ChromeOptions();
+
+		    options.addArguments("--disable-notifications");
+
+		    options.setExperimentalOption("prefs", java.util.Map.of(
+		        "credentials_enable_service", false,
+		        "profile.password_manager_leak_detection", false
+		    ));
+
+		    driver = new ChromeDriver(options);
 			System.out.println("Driver created: " + driver);
 		}
 		else
@@ -31,7 +41,7 @@ public class BaseClass
 		
 		driver.manage().window().maximize();
 		driver.get(cr.getUrl());
-		
+		//driver.get(url);
 	}
 	
 	public WebDriver getDriver()
