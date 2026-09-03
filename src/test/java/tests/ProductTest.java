@@ -10,22 +10,17 @@ import org.testng.annotations.Test;
 
 import java.time.Duration;
 import java.util.List;
-import java.util.Scanner;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Listeners;
+import org.testng.annotations.Parameters;
 import org.testng.asserts.SoftAssert;
 
 @Listeners(MyListner.class)
 public class ProductTest extends BaseClass
 {
-	/*=============================================================================================
-	  =============================================================================================
-	                                 PRODUCT PAGE VALIDATIONS 
-	 =============================================================================================
-	 =============================================================================================_*/
 	
 	// Verify product page is displayed
 	@Test
@@ -131,14 +126,6 @@ public class ProductTest extends BaseClass
 		sa.assertAll();
 	}
 
-	
-	/*=============================================================================================
-	  =============================================================================================
-	                                 CART BUTTON VALIDATIONS
-	 =============================================================================================
-	 =============================================================================================_*/
-	
-	
 	// Verify cart buttons are displayed and enabled
 	@Test
 	public void verifyCartButtonsDisplayedAndEnabled()
@@ -168,36 +155,32 @@ public class ProductTest extends BaseClass
 		
 		int exp_count = 1 + pp.getCartCount();
 		pp.addSingleProductToCart();
-		sa.assertEquals(pp.getCartCount(), exp_count, "Product is not added in cart since the count is not added");
-		Thread.sleep(3000);		
+		sa.assertEquals(pp.getCartCount(), exp_count, "Product is not added in cart since the count is not added");		
 		sa.assertEquals(pp.getCartText(), "Remove");
 		sa.assertAll();
 	}
 	
-	
 	// Verify multiple products can be added to cart
+	@Parameters("cartData")
 	@Test
-	public void verifyMultipleProductsCanBeAddedToCart()
+	public void verifyMultipleProductsCanBeAddedToCart(int cartData)
 	{
 		LoginPage lp = new LoginPage(driver);
 		lp.login("standard_user", "secret_sauce");
 		ProductPage pp = new ProductPage(driver);
 		SoftAssert sa = new SoftAssert();
 		
-		System.out.println("Enter how many product should be add in to cart");
-		Scanner sc=new Scanner(System.in);
-		int cartToAdd = sc.nextInt();
-		int exp_count = cartToAdd + pp.getCartCount();
+		int exp_count = cartData + pp.getCartCount();
 		
-		if(cartToAdd > 0 && cartToAdd <= pp.getProductCount())
+		if(cartData > 0 && cartData <= pp.getProductCount())
 		{
-			pp.addMultiProductToCart(cartToAdd);
+			pp.addMultiProductToCart(cartData);
 			sa.assertEquals(pp.getCartCount(), exp_count, "Product is not added in cart since the count is not added");
 		}
 		else
 		{
 			sa.assertTrue(false, null);
-			System.out.println("Invalid number of products: " + cartToAdd);
+			System.out.println("Invalid number of products: " + cartData);
 		}
 		
 		sa.assertAll();
@@ -233,12 +216,6 @@ public class ProductTest extends BaseClass
 		sa.assertAll();
 	}
 	 
-	
-	/*=============================================================================================
-	  =============================================================================================
-	                                  PRODUCT SORTING VALIDATIONS 
-	 =============================================================================================
-	 =============================================================================================_*/
 	
 	// Verify product sorting A to Z
 	@Test
@@ -317,6 +294,6 @@ public class ProductTest extends BaseClass
 		sa.assertEquals(actual_price, expct_price, "Price is not sorted in high to low order");
 		sa.assertAll();
 	}
-		
+	
 
 }
