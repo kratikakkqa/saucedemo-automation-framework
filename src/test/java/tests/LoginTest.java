@@ -14,6 +14,7 @@ import org.testng.asserts.SoftAssert;
 @Listeners(MyListner.class)
 public class LoginTest extends BaseClass
 {
+	//Login data
 	@DataProvider(name="loginData")
 	public Object[][] getData()
 	{
@@ -29,6 +30,7 @@ public class LoginTest extends BaseClass
 				};
 	}
 	
+	// Verify login 
 	@Test(dataProvider = "loginData")
 	public void verifyLogin(String username, String password, boolean validLogin)
 	{
@@ -52,6 +54,7 @@ public class LoginTest extends BaseClass
 		sa.assertAll();
 	}
 	
+	// Verify password field is masked
 	@Test
 	public void verifyPasswordFieldIsMasked()
 	{
